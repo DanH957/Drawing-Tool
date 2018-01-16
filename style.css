@@ -1,0 +1,125 @@
+.canvasDiv{
+	border:2px;
+	border-color:grey;
+	box-shadow: 2px 2px 5px grey;
+}
+#myCanvas{
+	position:absolute;
+	z-index: 1;
+	margin:auto;
+	display: block;
+	top:4%;
+	left:4%;
+
+}
+
+#canvas2{
+	background-color: #ffffff;
+	position:absolute;
+	border:2px solid black;
+	margin:auto;
+	top:4%;
+	left:4%;
+
+}
+#paint{
+	
+}
+
+#buttons{
+	z-index: 0;
+	text-align:center;
+	display:block;
+	position:absolute;
+	top:-0%;
+	left:8%;
+  
+}
+
+#buttons .button{
+	-moz-box-sizing: border-box;
+	background-color: #6288A5;
+    border: 1px solid #4D7B9F;
+    border-radius: 3px;
+    color: #fff !important;
+    display: inline-block;
+    font-size: 10px;
+    font-family: nyt-franklin, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    padding: 7px 10px 6px;
+    text-transform: none;
+    text-decoration: none;
+    margin-right: 3px;
+}
+
+#buttons #button:hover{
+	background-color: #50627E;
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .75);
+  -moz-box-shadow: 0 0 1px rgba(0, 0, 0, .75);
+  box-shadow: 0 0 1px rgba(0, 0, 0, .75);
+
+}
+
+
+#panel-left{
+	z-index:-1;
+	background-color: #ccccb3;
+	width:34.9%;
+	    height:480px;
+	    padding:15px;
+		
+		
+}
+  
+
+
+#colours{
+	width:8px;
+	margin:auto;
+		position:absolute;
+		left:0%;
+		z-index: 0;
+
+	display:block;
+	top:5%;
+	left:1%;
+}
+
+#colours .colour{
+	border: 1px;
+	width:45px;
+	height:40px;
+	float:left;
+	height:15;
+	margin-bottom:4px;
+}
+
+#colours #black {
+    background-color: black;
+}
+
+#colours #blue {
+    background-color: blue;
+}
+
+#colours #green {
+    background-color: #00e600;
+}
+
+#colours #red {
+    background-color: red;
+}
+
+#colours #yellow {
+    background-color: yellow;
+}
+
+#colours #orange {
+    background-color: #ff6600;
+}
+
+#colours .colour:hover{
+	border:2px solid grey;
+		
+	}
