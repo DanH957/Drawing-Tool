@@ -24,8 +24,11 @@ canvas.started = false;
 
 
 
+
 var Pencil = 1;
 var Line = 0;
+var Circle = 0;
+var BrushSize = 3;
 
 var mouse = {x: 0, y: 0};
  
@@ -43,20 +46,50 @@ function Point(x, y) {
     this.y = y;
 }
 
+function PlusBrushSize(){
+	BrushSize++;
+	ctx.lineWidth = BrushSize;
+}
+
+function MinusBrushSize(){
+	BrushSize--;
+	ctx.lineWidth = BrushSize;
+}
+
 function PickColour(a){
 ctx.strokeStyle = a;
 }
 
+function UseEraser(){
+	ctx.strokeStyle = '#ffffff';
+}
+
 function IsPencil(){
 	document.getElementById("button3").style.backgroundColor = "#1e242f";
+	document.getElementById("button2").style.backgroundColor = "#6288A5";
+	document.getElementById("button5").style.backgroundColor = "#6288A5";
 	Pencil = 1;
 	Line = 0;
+	Circle = 0;
 }
 
 function IsLine(){
+	document.getElementById("button3").style.backgroundColor = "#6288A5";
+	document.getElementById("button2").style.backgroundColor = "#1e242f";
+	document.getElementById("button5").style.backgroundColor = "#6288A5";
 	Line = 1;
 	Pencil = 0;
+	Circle = 0;
 	}
+	
+function IsCircle(){
+	document.getElementById("button3").style.backgroundColor = "#6288A5";
+	document.getElementById("button2").style.backgroundColor = "#6288A5";
+	document.getElementById("button5").style.backgroundColor = "#1e242f";
+	Circle = 1;
+	Pencil = 0;
+	Line = 0;
+}	
 
 function ClearCanvas(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height); // Clears the canvas
@@ -67,12 +100,16 @@ function img_update () {
 		ctxo.drawImage(canvas, 0, 0);
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
+  
+
 
 
 canvas.addEventListener('mousedown', function(e) {
+	e.target.started =  true;
 	
 	canvas.Currentx = mouse.x;
 	 canvas.Currenty = mouse.y;
+	 
 	if(Pencil){
     ctx.beginPath();
     ctx.moveTo(mouse.x, mouse.y);
@@ -81,11 +118,14 @@ canvas.addEventListener('mousedown', function(e) {
 	}
 	
 	if(Line){
-	e.target.started =  true;
 	
-	 var stPoint = new Point(e.PageX, e.PageY);
 	canvas.addEventListener('mousemove', DrawLine, false);	
 		
+	}
+	
+	if(Circle){
+		
+		canvas.addEventListener('mousemove', drawOval, false);
 	}
 	
 }, false);
@@ -95,6 +135,7 @@ canvas.addEventListener('mouseup', function(e) {
 	e.target.started = false;
     
 	canvas.removeEventListener('mousemove', DrawLine, false);
+	canvas.removeEventListener('mousemove', drawOval, false);
 	}
 	canvas.removeEventListener('mousemove', onPaint, false);
 	img_update();
@@ -117,3 +158,17 @@ var DrawLine = function(e) {
 	ctx.closepath();
 	
 };
+
+var drawOval = function(e){
+	if(!e.target.started){
+		return;
+	}
+	 ctx.clearRect(0, 0, canvas.width, canvas.height);
+	 ctx.beginPath();
+	 ctx.moveTo(e.target.Currentx, e.target.Currenty  + (mouse.y - e.target.Currenty) / 2);
+	 ctx.bezierCurveTo(e.target.Currentx, e.target.Currenty, mouse.x, e.target.Currenty, mouse.x , e.target.Currenty + (mouse.y - e.target.Currenty) / 2);
+	 ctx.bezierCurveTo(mouse.x, mouse.y, e.target.Currentx, mouse.y, e.target.Currentx, e.target.Currenty + (mouse.y - e.target.Currenty) / 2);
+	 ctx.closePath();
+	 ctx.stroke();
+	 	 
+ };

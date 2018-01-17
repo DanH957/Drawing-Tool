@@ -1,12 +1,11 @@
 .canvasDiv{
-	border:2px;
-	border-color:grey;
-	box-shadow: 2px 2px 5px grey;
+
+
 }
 #myCanvas{
 	position:absolute;
 	z-index: 1;
-	margin:auto;
+
 	display: block;
 	top:4%;
 	left:4%;
@@ -17,7 +16,6 @@
 	background-color: #ffffff;
 	position:absolute;
 	border:2px solid black;
-	margin:auto;
 	top:4%;
 	left:4%;
 
@@ -36,7 +34,7 @@
   
 }
 
-#buttons .button{
+.button{
 	-moz-box-sizing: border-box;
 	background-color: #6288A5;
     border: 1px solid #4D7B9F;
@@ -61,11 +59,26 @@
 
 }
 
+#BrushOptions{
+	text-align:center;
+	display:block;
+	position:absolute;
+	top:-0%;
+	left:40%;
+}
+
+#Tools{
+	text-align:center;
+	display:block;
+	position:absolute;
+	top:-0%;
+	left:20%;
+}
 
 #panel-left{
 	z-index:-1;
 	background-color: #ccccb3;
-	width:34.9%;
+	width:49%;
 	    height:480px;
 	    padding:15px;
 		
@@ -76,7 +89,7 @@
 
 #colours{
 	width:8px;
-	margin:auto;
+	
 		position:absolute;
 		left:0%;
 		z-index: 0;
@@ -117,6 +130,14 @@
 
 #colours #orange {
     background-color: #ff6600;
+}
+
+#colours #purple {
+	background-color: #800080;
+}
+
+#colours #brown{
+	background-color: #663300;
 }
 
 #colours .colour:hover{
