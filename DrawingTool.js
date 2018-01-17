@@ -19,7 +19,7 @@ canvaso.height = 480;
 
 canvas.width = 640;
 canvas.height = 480;
-canvas.started = false;
+canvas.started = true;
 
 
 
@@ -61,7 +61,9 @@ ctx.strokeStyle = a;
 }
 
 function UseEraser(){
+	IsPencil();
 	ctx.strokeStyle = '#ffffff';
+	
 }
 
 function IsPencil(){
@@ -71,6 +73,7 @@ function IsPencil(){
 	Pencil = 1;
 	Line = 0;
 	Circle = 0;
+	EraserCheck()
 }
 
 function IsLine(){
@@ -80,7 +83,14 @@ function IsLine(){
 	Line = 1;
 	Pencil = 0;
 	Circle = 0;
+	EraserCheck()
 	}
+	
+function EraserCheck(){
+if(ctx.strokeStyle === '#ffffff'){
+		ctx.strokeStyle = '#000000';
+	}
+}	
 	
 function IsCircle(){
 	document.getElementById("button3").style.backgroundColor = "#6288A5";
@@ -89,6 +99,7 @@ function IsCircle(){
 	Circle = 1;
 	Pencil = 0;
 	Line = 0;
+	EraserCheck()
 }	
 
 function ClearCanvas(){
@@ -102,6 +113,10 @@ function img_update () {
   }
   
 
+canvas.addEventListener('mouseout', function(e) {  
+e.target.started =  false;
+img_update();
+}, false);
 
 
 canvas.addEventListener('mousedown', function(e) {
@@ -113,7 +128,6 @@ canvas.addEventListener('mousedown', function(e) {
 	if(Pencil){
     ctx.beginPath();
     ctx.moveTo(mouse.x, mouse.y);
- 
     canvas.addEventListener('mousemove', onPaint, false);
 	}
 	
@@ -136,33 +150,35 @@ canvas.addEventListener('mouseup', function(e) {
     
 	canvas.removeEventListener('mousemove', DrawLine, false);
 	canvas.removeEventListener('mousemove', drawOval, false);
-	}
+	
 	canvas.removeEventListener('mousemove', onPaint, false);
 	img_update();
+	}
 }, false);
  
-var onPaint = function() {
+var onPaint = function(e) {
+	 if(e.target.started){
     ctx.lineTo(mouse.x, mouse.y);
     ctx.stroke();
+	 }
 };
 
 var DrawLine = function(e) {
-    if(!e.target.started){
-		return;
-	}
+    if(e.target.started){
+	
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.beginPath();
 	ctx.moveTo(e.target.Currentx, e.target.Currenty);
 	ctx.lineTo(mouse.x, mouse.y);
     ctx.stroke();
 	ctx.closepath();
+}
 	
 };
 
 var drawOval = function(e){
-	if(!e.target.started){
-		return;
-	}
+	if(e.target.started){
+		
 	 ctx.clearRect(0, 0, canvas.width, canvas.height);
 	 ctx.beginPath();
 	 ctx.moveTo(e.target.Currentx, e.target.Currenty  + (mouse.y - e.target.Currenty) / 2);
@@ -170,5 +186,5 @@ var drawOval = function(e){
 	 ctx.bezierCurveTo(mouse.x, mouse.y, e.target.Currentx, mouse.y, e.target.Currentx, e.target.Currenty + (mouse.y - e.target.Currenty) / 2);
 	 ctx.closePath();
 	 ctx.stroke();
-	 	 
+	} 
  };
